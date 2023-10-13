@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
 :root {
   --primary-color: #F37515;
+  --background-color: #1D2024;
 }
 
 *{
@@ -9,7 +10,7 @@
 }
 
 body{
-	background-color: #111;
+	background-color: var(--background-color);
 	color: #ffffff;
 	font-family: 'Outfit', sans-serif;
 }
