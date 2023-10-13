@@ -1,0 +1,79 @@
+.randomMovie {
+  position: relative;
+  max-width: 800px;
+  margin-top: 30px;
+  display: flex;
+  background-color: #fff;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.randomMovieImageContainer {
+  position: relative;
+  flex: 1;
+  min-width: 100%;
+}
+
+.randomMovieImage {
+  min-width: 100%;
+  height: 350px;
+  display: block;
+  z-index: 1;
+  border-radius: 30px;
+  object-fit: cover;
+  border: 0;
+  outline: none; 
+}
+
+
+.randomMovieImageOverlay {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.randomMovieInfo {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  bottom: 20px;
+  left: 50px;
+  padding: 10px;
+  z-index: 10;
+}
+
+.movieTitle {
+  font-weight: 700;
+  font-size: 36px;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.movieDescription {
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.movieDetails {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.movieYear,
+.movieGenre,
+.movieDuration,
+.movieRating {
+  font-weight: 400;
+  font-size: 14px;
+  color: #fff;
+}
+

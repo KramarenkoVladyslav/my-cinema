@@ -1,0 +1,32 @@
+.sidebar {
+  position: absolute; 
+  width: 100px;
+  height: 100vh;
+  background-color: #1F2226;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.sidebarBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+.sidebarLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 15px 15px;
+  margin-top: 45px;
+  background: #282b30;
+}
+
+
+

@@ -1,0 +1,60 @@
+.movieBlock {
+  position: relative;
+  display: flex;
+  width: 300px;
+  height: 150px;
+  flex-direction: column;
+}
+
+.movieBlock:last-child{
+  margin-right: 50px;
+}
+
+.movieImage {
+  width: 300px;
+  height: 150px;
+  border-radius: 30px;
+  object-fit: cover;
+}
+
+.movieTitle {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.movieInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.movieDetails{
+	display: flex;
+}
+
+.movieGenre {
+  display: none;
+}
+
+
+
+.movieYear {
+  font-weight: 700;
+	font-size: 14px;
+	color: #6d6f72;
+}
+
+.movieRatingBlock{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	margin-left: 10px;
+}
+
+.movieRating {
+  font-weight: 700;
+  font-size: 14px;
+  color: #6d6f72;
+}
