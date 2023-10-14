@@ -45,14 +45,14 @@
 .movieList {
   display: flex;
   overflow-x: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   height: 190px;
   gap: 50px;
   margin-top: 30px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.movieList:-webkit-scrollbar {
-      width: 0;
-      height: 0;
+.movieList::-webkit-scrollbar {
+    width: 0 !important;
+ 	height: 0 !important;
 }
