@@ -47,9 +47,9 @@
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  height: 190px;
   gap: 50px;
   margin-top: 30px;
-  padding-bottom: 70px; 
 }
 
 .movieList:-webkit-scrollbar {
