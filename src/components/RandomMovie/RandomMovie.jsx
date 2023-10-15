@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import styles from './RandomMovie.module.css';
+import PropTypes from "prop-types";
+import styles from "./RandomMovie.module.css";
 
 function RandomMovie({ movie }) {
   return (
