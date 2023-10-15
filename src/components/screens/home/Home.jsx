@@ -5,7 +5,7 @@ import movies from "../../../constants/MovieList";
 import Sidebar from "../../Sidebar/Sidebar";
 import RandomMovie from "../../RandomMovie/RandomMovie";
 
-const genres = ["All", "Comedy", "Fantasy", "Drama", "History", "Horror"];
+const genres = ["All", "Comedy", "Fantasy", "Drama", "History", "Horror", "Thriller", "Action", "Detective", "Criminal", ];
 
 function Home() {
   const [selectedGenre, setSelectedGenre] = useState("All");
