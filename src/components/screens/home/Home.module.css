@@ -1,11 +1,11 @@
-.title{
-	font-weight: 900;
-	font-size: 40px;
+.title {
+  font-weight: 900;
+  font-size: 40px;
 }
 
-.homePage{
-	position: relative;
-	padding: 30px 0 0 125px;
+.homePage {
+  position: relative;
+  padding: 30px 0 0 125px;
 }
 
 .genresBlock{
@@ -52,7 +52,7 @@
 }
 
 .genreSelected {
-	background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .movieList {
