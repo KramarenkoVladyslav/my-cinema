@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './Home.module.css';
 import MovieBlock from '../../MovieBlock/MovieBlock';
 import movies from '../../../constants/MovieList';
@@ -21,26 +21,18 @@ const genres = [
 function Home() {
 	const [selectedGenre, setSelectedGenre] = useState('All');
 	const [randomMovie, setRandomMovie] = useState(null);
+	const [specialOffers, setSpecialOffers] = useState([]);
+	const [genreMovies, setGenreMovies] = useState([]);
+	const intervalId = useRef(null);
 
 	const handleGenreClick = genre => {
 		setSelectedGenre(genre);
 	};
 
-	const itemsPerGroup = 30;
-
-	const filteredMovies =
-		selectedGenre === 'All'
-			? movies
-			: movies.filter(movie => movie.genre === selectedGenre);
-
-	const movieGroups = [];
-	for (let i = 0; i < filteredMovies.length; i += itemsPerGroup) {
-		movieGroups.push(filteredMovies.slice(i, i + itemsPerGroup));
-	}
-
 	useEffect(() => {
+		// Рандомний фільм для вкладки "All"
 		if (selectedGenre === 'All') {
-			const intervalId = setInterval(() => {
+			intervalId.current = setInterval(() => {
 				const randomMovieIndex = Math.floor(
 					Math.random() * movies.length
 				);
@@ -50,11 +42,39 @@ function Home() {
 			const randomMovieIndex = Math.floor(Math.random() * movies.length);
 			setRandomMovie(movies[randomMovieIndex]);
 
-			return () => {
-				clearInterval(intervalId);
-			};
+			if (specialOffers.length === 0) {
+				const specialOfferMovies = [];
+				const uniqueRandomIndexes = new Set();
+
+				while (uniqueRandomIndexes.size < 7) {
+					const randomIndex = Math.floor(
+						Math.random() * movies.length
+					);
+					uniqueRandomIndexes.add(randomIndex);
+				}
+
+				uniqueRandomIndexes.forEach(index => {
+					specialOfferMovies.push(movies[index]);
+				});
+
+				setSpecialOffers(specialOfferMovies);
+			}
+		} else {
+			setRandomMovie(null);
+			setSpecialOffers([]);
+
+			// Завантажити фільми, які відповідають вибраному жанру
+			const genreFilteredMovies = movies.filter(
+				movie => movie.genre === selectedGenre
+			);
+
+			setGenreMovies(genreFilteredMovies);
 		}
-	}, [selectedGenre]);
+
+		return () => {
+			clearInterval(intervalId.current);
+		};
+	}, [selectedGenre, specialOffers.length]);
 
 	return (
 		<div className={styles.homePage}>
@@ -82,9 +102,9 @@ function Home() {
 				<RandomMovie movie={randomMovie} />
 			)}
 
-			{movieGroups.map((group, groupIndex) => (
-				<div className={styles.movieList} key={groupIndex}>
-					{group.map((movie, index) => (
+			{selectedGenre === 'All' && specialOffers.length > 0 && (
+				<div className={styles.movieList}>
+					{specialOffers.map((movie, index) => (
 						<MovieBlock
 							key={index}
 							title={movie.title}
@@ -94,7 +114,21 @@ function Home() {
 						/>
 					))}
 				</div>
-			))}
+			)}
+
+			{selectedGenre !== 'All' && genreMovies.length > 0 && (
+				<div className={styles.movieList}>
+					{genreMovies.map((movie, index) => (
+						<MovieBlock
+							key={index}
+							title={movie.title}
+							year={movie.year}
+							rating={movie.rating}
+							image={movie.image}
+						/>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }
