@@ -1,11 +1,12 @@
 .randomMovie {
   position: relative;
-  max-width: 800px;
-  margin-top: 10px;
   display: flex;
-  background-color: #fff;
+  max-width: 800px;
+  max-height: 350px;
+  margin-top: 10px;
   border-radius: 30px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .randomMovieImageContainer {
@@ -16,13 +17,13 @@
 
 .randomMovieImage {
   min-width: 100%;
-  height: 350px;
+  height: 100%;
   display: block;
   z-index: 1;
   border-radius: 30px;
   object-fit: cover;
   border: 0;
-  outline: none; 
+  outline: none;
 }
 
 
@@ -33,7 +34,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.55);
   z-index: 2;
 }
 
@@ -43,7 +44,7 @@
   flex-direction: column;
   max-width: 700px;
   bottom: 20px;
-  left: 50px;
+  left: 30px;
   padding: 10px;
   z-index: 10;
 }
