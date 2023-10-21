@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import styles from "./RandomMovie.module.css";
+import styles from "./MovieBanner.module.css";
 
-function RandomMovie({ movie }) {
+const MovieBanner = ({ movie }) => {
   return (
     <div className={styles.randomMovie}>
       <div className={styles.randomMovieImageContainer}>
@@ -23,9 +23,9 @@ function RandomMovie({ movie }) {
       </div>
     </div>
   );
-}
+};
 
-RandomMovie.propTypes = {
+MovieBanner.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -37,4 +37,4 @@ RandomMovie.propTypes = {
   }).isRequired,
 };
 
-export default RandomMovie;
+export default MovieBanner;

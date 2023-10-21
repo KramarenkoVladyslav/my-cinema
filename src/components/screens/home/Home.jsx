@@ -1,136 +1,123 @@
-import { useState, useEffect, useRef } from 'react';
-import styles from './Home.module.css';
-import MovieBlock from '../../MovieBlock/MovieBlock';
-import movies from '../../../constants/MovieList';
-import Sidebar from '../../Sidebar/Sidebar';
-import RandomMovie from '../../RandomMovie/RandomMovie';
+import { useState, useEffect, useRef } from "react";
 
-const genres = [
-	'All',
-	'Comedy',
-	'Fantasy',
-	'Drama',
-	'History',
-	'Horror',
-	'Thriller',
-	'Action',
-	'Detective',
-	'Criminal',
-];
+import styles from "./Home.module.css";
+
+import { movies, genres } from "../../../constants/index";
+
+import MovieBlock from "../../MovieBlock/MovieBlock";
+import Sidebar from "../../Sidebar/Sidebar";
+import MovieBanner from "../../MovieBanner/MovieBanner";
 
 function Home() {
-	const [selectedGenre, setSelectedGenre] = useState('All');
-	const [randomMovie, setRandomMovie] = useState(null);
-	const [specialOffers, setSpecialOffers] = useState([]);
-	const [genreMovies, setGenreMovies] = useState([]);
-	const intervalId = useRef(null);
+  const [selectedGenre, setSelectedGenre] = useState("All");
+  const [movieBanner, setMovieBanner] = useState(null);
+  const [specialOffers, setSpecialOffers] = useState([]);
+  const [genreMovies, setGenreMovies] = useState([]);
+  const intervalId = useRef(null);
 
-	const handleGenreClick = genre => {
-		setSelectedGenre(genre);
-	};
+  const handleGenreClick = (genre) => {
+    setSelectedGenre(genre);
+  };
 
-	useEffect(() => {
-		// Рандомний фільм для вкладки "All"
-		if (selectedGenre === 'All') {
-			intervalId.current = setInterval(() => {
-				const randomMovieIndex = Math.floor(
-					Math.random() * movies.length
-				);
-				setRandomMovie(movies[randomMovieIndex]);
-			}, 5000);
+  useEffect(() => {
+    // Function to select a random movie
+    const selectMovieBanner = () => {
+      const randomMovieIndex = Math.floor(Math.random() * movies.length);
+      setMovieBanner(movies[randomMovieIndex]);
+    };
 
-			const randomMovieIndex = Math.floor(Math.random() * movies.length);
-			setRandomMovie(movies[randomMovieIndex]);
+    if (selectedGenre === "All") {
+      // Select a random movie at the start and set an interval to change it
+      if (!movieBanner) {
+        selectMovieBanner();
+        intervalId.current = setInterval(selectMovieBanner, 5000);
+      }
 
-			if (specialOffers.length === 0) {
-				const specialOfferMovies = [];
-				const uniqueRandomIndexes = new Set();
+      // Select special offer movies if not already set
+      if (specialOffers.length === 0) {
+        const uniqueRandomIndexes = new Set();
 
-				while (uniqueRandomIndexes.size < 7) {
-					const randomIndex = Math.floor(
-						Math.random() * movies.length
-					);
-					uniqueRandomIndexes.add(randomIndex);
-				}
+        while (uniqueRandomIndexes.size < 7) {
+          const randomIndex = Math.floor(Math.random() * movies.length);
+          uniqueRandomIndexes.add(randomIndex);
+        }
 
-				uniqueRandomIndexes.forEach(index => {
-					specialOfferMovies.push(movies[index]);
-				});
+        const specialOfferMovies = Array.from(uniqueRandomIndexes).map(
+          (index) => movies[index]
+        );
+        setSpecialOffers(specialOfferMovies);
+      }
+    } else {
+      // Clear random movie and special offers if not in "All" genre
+      setMovieBanner(null);
+      setSpecialOffers([]);
 
-				setSpecialOffers(specialOfferMovies);
-			}
-		} else {
-			setRandomMovie(null);
-			setSpecialOffers([]);
+      // Filter and set movies for the selected genre
+      const genreFilteredMovies = movies.filter(
+        (movie) => movie.genre === selectedGenre
+      );
 
-			// Завантажити фільми, які відповідають вибраному жанру
-			const genreFilteredMovies = movies.filter(
-				movie => movie.genre === selectedGenre
-			);
+      setGenreMovies(genreFilteredMovies);
+    }
 
-			setGenreMovies(genreFilteredMovies);
-		}
+    return () => {
+      clearInterval(intervalId.current);
+    };
+  }, [selectedGenre, movieBanner, specialOffers]);
 
-		return () => {
-			clearInterval(intervalId.current);
-		};
-	}, [selectedGenre, specialOffers.length]);
+  return (
+    <div className={styles.homePage}>
+      <Sidebar />
+      <h1 className={styles.title}>My cinema</h1>
+      <div className={styles.genres}>
+        <ul className={styles.genresBlock}>
+          {genres.map((genre, index) => (
+            <li
+              key={index}
+              onClick={() => handleGenreClick(genre)}
+              className={`${styles.genre} ${
+                selectedGenre === genre ? styles.genreSelected : ""
+              }`}
+            >
+              {genre}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-	return (
-		<div className={styles.homePage}>
-			<Sidebar />
-			<h1 className={styles.title}>My cinema</h1>
-			<div className={styles.genres}>
-				<ul className={styles.genresBlock}>
-					{genres.map((genre, index) => (
-						<li
-							key={index}
-							onClick={() => handleGenreClick(genre)}
-							className={`${styles.genre} ${
-								selectedGenre === genre
-									? styles.genreSelected
-									: ''
-							}`}
-						>
-							{genre}
-						</li>
-					))}
-				</ul>
-			</div>
+      {selectedGenre === "All" && movieBanner && (
+        <MovieBanner movie={movieBanner} />
+      )}
 
-			{selectedGenre === 'All' && randomMovie && (
-				<RandomMovie movie={randomMovie} />
-			)}
+      {selectedGenre === "All" && specialOffers.length > 0 && (
+        <div className={styles.movieList}>
+          {specialOffers.map((movie, index) => (
+            <MovieBlock
+              key={index}
+              title={movie.title}
+              year={movie.year}
+              rating={movie.rating}
+              image={movie.image}
+            />
+          ))}
+        </div>
+      )}
 
-			{selectedGenre === 'All' && specialOffers.length > 0 && (
-				<div className={styles.movieList}>
-					{specialOffers.map((movie, index) => (
-						<MovieBlock
-							key={index}
-							title={movie.title}
-							year={movie.year}
-							rating={movie.rating}
-							image={movie.image}
-						/>
-					))}
-				</div>
-			)}
-
-			{selectedGenre !== 'All' && genreMovies.length > 0 && (
-				<div className={styles.movieList}>
-					{genreMovies.map((movie, index) => (
-						<MovieBlock
-							key={index}
-							title={movie.title}
-							year={movie.year}
-							rating={movie.rating}
-							image={movie.image}
-						/>
-					))}
-				</div>
-			)}
-		</div>
-	);
+      {selectedGenre !== "All" && genreMovies.length > 0 && (
+        <div className={styles.movieList}>
+          {genreMovies.map((movie, index) => (
+            <MovieBlock
+              key={index}
+              title={movie.title}
+              year={movie.year}
+              rating={movie.rating}
+              image={movie.image}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Home;

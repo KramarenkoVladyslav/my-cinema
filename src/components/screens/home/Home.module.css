@@ -1,73 +1,73 @@
 .title {
-  font-weight: 900;
-  font-size: 40px;
-}
-
-.homePage {
-  position: relative;
-  padding: 30px 0 0 125px;
-}
-
-.genresBlock{
+	font-weight: 900;
+	font-size: 40px;
+  }
+  
+  .homePage {
+	position: relative;
+	padding: 30px 0 0 125px;
+  }
+  
+  .genresBlock{
+	  display: flex;
+	  margin-top: 15px;
+	  padding-bottom: 20px;
+	  text-decoration: none;
+	  list-style-type: none;
+	  overflow-x: auto;
+	  overflow-y: hidden;
+	  scrollbar-width: none;
+		-ms-overflow-style: none;
+  }
+  
+  .genresBlock::-webkit-scrollbar{
+	  width: 0 !important;
+	   height: 0 !important;
+  }
+  
+  .genre {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  min-width: 190px;
+	  height: 55px;
+	  background-color: #282b30;
+	  border-radius: 100px;
+	  font-weight: 400;
+	  font-size: 18px;
+	  margin-left: 20px;
+	  padding: 0;
+	  transition: 0.25s ease-in-out;
+  }
+  
+  .genre:first-child{
+	  padding: 0;
+	  min-width: 150px;
+	  height: 55px;
+	  margin-left: 0;
+  }
+  
+  .genre:last-child{
+	  margin-right: 25px;
+  }
+  
+  .genreSelected {
+	background-color: var(--primary-color);
+  }
+  
+  .movieList {
 	display: flex;
-	margin-top: 15px;
 	padding-bottom: 20px;
-	text-decoration: none;
-	list-style-type: none;
 	overflow-x: auto;
 	overflow-y: hidden;
+	height: 190px;
+	gap: 50px;
+	margin-top: 40px;
 	scrollbar-width: none;
-  	-ms-overflow-style: none;
-}
-
-.genresBlock::-webkit-scrollbar{
-	width: 0 !important;
- 	height: 0 !important;
-}
-
-.genre {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-width: 190px;
-	height: 55px;
-	background-color: #282b30;
-	border-radius: 100px;
-	font-weight: 400;
-	font-size: 18px;
-	margin-left: 20px;
-	padding: 0;
-	transition: 0.25s ease-in-out;
-}
-
-.genre:first-child{
-	padding: 0;
-	min-width: 150px;
-	height: 55px;
-	margin-left: 0;
-}
-
-.genre:last-child{
-	margin-right: 25px;
-}
-
-.genreSelected {
-  background-color: var(--primary-color);
-}
-
-.movieList {
-  display: flex;
-  padding-bottom: 20px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 190px;
-  gap: 50px;
-  margin-top: 40px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.movieList::-webkit-scrollbar {
-    width: 0 !important;
- 	height: 0 !important;
-}
+	-ms-overflow-style: none;
+  }
+  
+  .movieList::-webkit-scrollbar {
+	  width: 0 !important;
+	   height: 0 !important;
+  }
